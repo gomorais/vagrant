@@ -16,13 +16,17 @@ class services {
         'mongodb':
             ensure => running,
             enable => true;
+	'redis-server':
+	    ensure => running,
+	    enable => true;
     }
 }
 
 class packages {
     package {
         "mongodb-10gen": ensure => "present"; # MongoDB
-        "nodejs": ensure => "present"
+        "nodejs": ensure => "present";
+	"redis-server":ensure => "present"
     }
 }
 
@@ -59,7 +63,10 @@ class repos {
             command => "/usr/bin/apt-get install -y python-software-properties python g++ make";
         "node-repo":
             require => Exec["chris-lea"],
-            command => "/usr/bin/add-apt-repository  -y ppa:chris-lea/node.js";
+            command => "/usr/bin/add-apt-repository -y ppa:chris-lea/node.js";
+	"redis-repo":
+	    require => Exec["chris-lea"],
+	    command => "/usr/bin/add-apt-repository -y ppa:rwky/redis";
     }
 
 }
