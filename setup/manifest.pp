@@ -73,6 +73,8 @@ class repos {
 
 class configure {
     exec {
+    "set-timezone":
+        command => "/bin/cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime";
     "node-forever":
         command => "/usr/bin/npm install forever -g";
     }
